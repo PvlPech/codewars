@@ -4,54 +4,33 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/* Parse bank account number */
+
 public class BankAccount {
 
-    public static String[][] parse(final String acctNbr) {
-        Map<String, Integer> map = new HashMap() {{
-            put("     |  |", 1);
-            put(" _  _||_ ", 2);
-            put(" _  _| _|", 3);
-            put("   |_|  |", 4);
-            put(" _ |_  _|", 5);
-            put(" _ |_ |_|", 6);
-            put(" _   |  |", 7);
-            put(" _ |_||_|", 8);
-            put(" _ |_| _|", 9);
-            put(" _ | ||_|", 0);
-        }};
+    private static Map<String, Long> map = new HashMap() {{
+        put("     |  |", 1L);
+        put(" _  _||_ ", 2L);
+        put(" _  _| _|", 3L);
+        put("   |_|  |", 4L);
+        put(" _ |_  _|", 5L);
+        put(" _ |_ |_|", 6L);
+        put(" _   |  |", 7L);
+        put(" _ |_||_|", 8L);
+        put(" _ |_| _|", 9L);
+        put(" _ | ||_|", 0L);
+    }};
 
+    public static long parse(final String acctNbr) {
         String[][] arr = Arrays.stream(acctNbr.split("\n"))
                 .map(e -> Arrays.stream(e.split("(?<=\\G.{3})"))
                     .toArray(String[]::new))
                 .toArray(String[][]::new);
 
-        String[] tArr = new String[9];
-        for (int i = 0; i < arr.length; i++) {
-            StringBuilder s = new StringBuilder();
-            for (int j = 0; j < arr[0].length; j++) {
-                s.append(arr[i][j]);
-//                System.out.print(arr[i][j]);
-            }
-            tArr[i] = s.toString();
-//            System.out.print("\n");
-        }
-//
-//        for (int i = 0; i < tArr.length; i++) {
-//            for (int j = 0; j < tArr[0].length; j++) {
-//                System.out.print(tArr[i][j]);
-//            }
-//            System.out.print("\n");
-//        }
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < arr[0].length; i++) result.append(map.get(arr[0][i] + arr[1][i] + arr[2][i]));
+        return Long.parseLong(result.toString());
 
-        long res = 0;
-        for (int i = 0; i < tArr.length; i++) {
-            System.out.print(tArr[i]);
-            res += Math.pow(10, 10-i)*map.get(tArr[i]);
-
-        }
-        System.out.println(res);
-
-        return arr;
     }
 
 }
