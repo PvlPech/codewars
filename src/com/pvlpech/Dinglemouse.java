@@ -2,24 +2,45 @@ package com.pvlpech;
 
 /* TV Remote */
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Dinglemouse {
 
-    private static final String[][] KEYBOARD = new String[][]{
-            {"a", "b", "c", "d", "e", "1", "2", "3"},
-            {"f", "g", "h", "i", "j", "4", "5", "6"},
-            {"k", "l", "m", "n", "o", "7", "8", "9"},
-            {"p", "q", "r", "s", "t", ".", "@", "0"},
-            {"u", "v", "w", "x", "y", "z", "_", "/"}
-    };
+    private static List<List<String>> keyboard = new ArrayList<>();
+
+    private static int[] getCharPosition(String input) {
+        for (List<String> row : keyboard) {
+
+            if (row.indexOf(input) != -1) {
+                return new int[]{keyboard.indexOf(row), row.indexOf(input)};
+            }
+        }
+        return null;
+    }
 
     public static int tvRemote(final String word) {
-        for(int i = 0; i < KEYBOARD.length; i++){
-            for(int j = 0; j < KEYBOARD[0].length; j++){
-                System.out.print(KEYBOARD[i][j]);
-            }
-            System.out.print("\n");
+        keyboard.add(Arrays.asList("a", "b", "c", "d", "e", "1", "2", "3"));
+        keyboard.add(Arrays.asList("f", "g", "h", "i", "j", "4", "5", "6"));
+        keyboard.add(Arrays.asList("k", "l", "m", "n", "o", "7", "8", "9"));
+        keyboard.add(Arrays.asList("p", "q", "r", "s", "t", ".", "@", "0"));
+        keyboard.add(Arrays.asList("u", "v", "w", "x", "y", "z", "_", "/"));
+
+        int[] currentCursor = new int[]{0, 0};
+        int result = 0;
+
+        int[][] wordCharsPosition = Arrays.stream(word.toLowerCase().split(""))
+                .map(ch -> Arrays.stream(getCharPosition(ch))
+                    .toArray())
+                .toArray(int[][]::new);
+
+        for (int i = 0; i < wordCharsPosition.length; i++){
+            result += Math.abs(wordCharsPosition[i][0]-currentCursor[0]) + Math.abs(wordCharsPosition[i][1]-currentCursor[1]);
+            currentCursor = wordCharsPosition[i];
         }
-        return 1;
+
+        return result + word.length();
     }
 
 }
