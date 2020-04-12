@@ -8,11 +8,14 @@ import java.util.List;
 
 public class Dinglemouse {
 
-    private static List<List<String>> keyboard = new ArrayList<>();
-
     private static int[] getCharPosition(String input) {
+        List<List<String>> keyboard = new ArrayList<>();
+        keyboard.add(Arrays.asList("a", "b", "c", "d", "e", "1", "2", "3"));
+        keyboard.add(Arrays.asList("f", "g", "h", "i", "j", "4", "5", "6"));
+        keyboard.add(Arrays.asList("k", "l", "m", "n", "o", "7", "8", "9"));
+        keyboard.add(Arrays.asList("p", "q", "r", "s", "t", ".", "@", "0"));
+        keyboard.add(Arrays.asList("u", "v", "w", "x", "y", "z", "_", "/"));
         for (List<String> row : keyboard) {
-
             if (row.indexOf(input) != -1) {
                 return new int[]{keyboard.indexOf(row), row.indexOf(input)};
             }
@@ -21,12 +24,6 @@ public class Dinglemouse {
     }
 
     public static int tvRemote(final String word) {
-        keyboard.add(Arrays.asList("a", "b", "c", "d", "e", "1", "2", "3"));
-        keyboard.add(Arrays.asList("f", "g", "h", "i", "j", "4", "5", "6"));
-        keyboard.add(Arrays.asList("k", "l", "m", "n", "o", "7", "8", "9"));
-        keyboard.add(Arrays.asList("p", "q", "r", "s", "t", ".", "@", "0"));
-        keyboard.add(Arrays.asList("u", "v", "w", "x", "y", "z", "_", "/"));
-
         int[] currentCursor = new int[]{0, 0};
         int result = 0;
 
