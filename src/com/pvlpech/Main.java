@@ -12,6 +12,6 @@ public class Main {
 //                                                     "|_| _| _||_||_ |_ |_|\n"+
 //                                                     "|_||_  _||_| _||_| _|\n"));
 
-        System.out.println(Dinglemouse.tvRemote("olo"));
+        System.out.println(Dinglemouse.tvRemote("/RauHX_ChoXr .7LhPWnFe.kYw0MeK"));
     }
 }
